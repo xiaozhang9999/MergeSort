@@ -1,0 +1,43 @@
+class Solution {
+public:
+    int ans=0;
+    int reversePairs(vector<int>& nums) {
+    ans=0;
+    vector<int>temp(nums.begin(),nums.begin());
+	sort(nums, 0, nums.size() - 1,temp);
+    return ans;
+    }
+ 
+void merge(vector<int>&arr, int l, int mid, int r,vector<int>&temp)
+{
+	temp.assign(arr.begin()+l,arr.begin()+r+1);
+	int i = l;
+	int j = mid + 1;
+	for (int k = l; k <= r; k++) {
+		if (i > mid) {
+			arr[k] = temp[j-l]; j++;
+		}
+		else if (j > r) {
+			arr[k] = temp[i-l]; i++;
+		}
+		else if (temp[i-l] <= temp[j-l]) {
+			arr[k] = temp[i-l]; i++;
+		}
+		else {
+            ans+=mid-i+1;
+			arr[k] = temp[j-l]; j++;
+		}
+	}
+}
+void sort(vector<int>&arr, int l, int r,vector<int>&temp) {
+	if (l >= r)
+		return;
+	int mid = l + (r - l) / 2;
+	sort(arr, l, mid,temp);
+	sort(arr, mid + 1, r,temp);
+	if (arr[mid] > arr[mid + 1]) {
+		merge(arr, l, mid, r,temp);
+	}
+}
+
+};
