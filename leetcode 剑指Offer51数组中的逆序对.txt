@@ -10,22 +10,22 @@ public:
  
 void merge(vector<int>&arr, int l, int mid, int r,vector<int>&temp)
 {
-	temp.assign(arr.begin()+l,arr.begin()+r+1);
+	temp.assign(arr.begin(),arr.end());
 	int i = l;
 	int j = mid + 1;
 	for (int k = l; k <= r; k++) {
 		if (i > mid) {
-			arr[k] = temp[j-l]; j++;
+			arr[k] = temp[j]; j++;
 		}
 		else if (j > r) {
-			arr[k] = temp[i-l]; i++;
+			arr[k] = temp[i]; i++;
 		}
-		else if (temp[i-l] <= temp[j-l]) {
-			arr[k] = temp[i-l]; i++;
+		else if (temp[i] <= temp[j]) {
+			arr[k] = temp[i]; i++;
 		}
 		else {
             ans+=mid-i+1;
-			arr[k] = temp[j-l]; j++;
+			arr[k] = temp[j]; j++;
 		}
 	}
 }
